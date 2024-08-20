@@ -1,0 +1,9 @@
+appId: "io.github.wizardcat.electron-next-test"
+productName: "Electron test app with Next.JS"
+copyright: "Copyright (c) 2024, wizardcat :)"
+win:
+  target: ["dir", "portable"]
+linux:
+  target: ["dir", "appimage"]
+mac:
+  target: ["dir", "dmg"]

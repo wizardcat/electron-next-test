@@ -310,6 +310,18 @@
   dependencies:
     defer-to-connect "^2.0.0"
 
+"@tanstack/query-core@5.51.24":
+  version "5.51.24"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.51.24.tgz#da901637c8652ba5703b92bd07496e7c9ae27836"
+  integrity sha512-qtIR0FMHUDIWyIQw87q4C+so7XaN59MsGfWrc6rgi2VTHrVZF3Hd0St2dbpqRetHf6XW5yY5lzTrXpTilPlxUg==
+
+"@tanstack/react-query@^5.51.24":
+  version "5.51.24"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-5.51.24.tgz#11385bee6b83a2d0ed6d5d03e16aab1cdf2cc24f"
+  integrity sha512-sW1qRwoCDqOFku67xng4Y5z6NPK1DS347jR4RiX9wFHrmyqpbXgUjPIjT3fodezdJAaSJD/6CvWb0cl05J8zNQ==
+  dependencies:
+    "@tanstack/query-core" "5.51.24"
+
 "@tootallnate/once@2":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-2.0.0.tgz#f544a148d3ab35801c1f633a7441fd87c2e484bf"
@@ -1307,10 +1319,10 @@ electron-publish@24.13.1:
     lazy-val "^1.0.5"
     mime "^2.5.2"
 
-electron-serve@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/electron-serve/-/electron-serve-2.1.0.tgz#38df854ea5fb885d046a81c1d8fd42b9a0dff422"
-  integrity sha512-ZJwdRHR2ij4exV0TKp2HQRWN59SW7fICcFZK5bPekN6HoUyrsT+dsCgO5+p8TsDmCwmQ5TJyIPVkghdEd16wwg==
+electron-serve@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/electron-serve/-/electron-serve-1.2.0.tgz#c2aa17017d89483c935f725ed70f8a63845c0091"
+  integrity sha512-zJG3wisMrDn2G/gnjrhyB074COvly1FnS0U7Edm8bfXLB8MYX7UtwR9/y2LkFreYjzQHm9nEbAfgCmF+9M9LHQ==
 
 electron@^32.0.0:
   version "32.0.0"

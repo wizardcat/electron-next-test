@@ -5,7 +5,6 @@
   "main": "main/main.js",
   "author": "Roman Havrylko",
   "description": "Electron + NextJS test project",
-  "type": "module",
   "scripts": {
     "dev": "concurrently -n \"NEXT,ELECTRON\" -c \"yellow,blue\" --kill-others \"next dev\" \"electron .\"",
     "build": "next build && electron-builder",
@@ -13,7 +12,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "electron-serve": "^2.1.0",
+    "@tanstack/react-query": "^5.51.24",
+    "electron-serve": "1.2.0",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18"

@@ -1,8 +1,12 @@
-import { app, BrowserWindow } from 'electron';
-import serve from 'electron-serve';
-import path from 'path';
+// import { app, BrowserWindow } from 'electron';
+// import serve from 'electron-serve';
+// import path from 'path';
+const { app, BrowserWindow } = require('electron');
+const serve = require('electron-serve');
+const path = require('path');
 
-const __dirname = path.resolve();
+// const __dirname=path.resolve();
+console.log('__dirname: ', __dirname);
 
 const appServe = app.isPackaged
   ? serve({
