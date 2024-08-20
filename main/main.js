@@ -1,9 +1,10 @@
 // import { app, BrowserWindow } from 'electron';
 // import serve from 'electron-serve';
 // import path from 'path';
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const serve = require('electron-serve');
 const path = require('path');
+const axios = require('axios');
 
 // const __dirname=path.resolve();
 console.log('__dirname: ', __dirname);
@@ -43,5 +44,15 @@ app.on('ready', () => {
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
+  }
+});
+
+ipcMain.on('fetch-url', async (event, url) => {
+  try {
+    const response = await axios.get(url);
+
+    event.reply('fetch-result', { data: response.data });
+  } catch (error) {
+    event.reply('fetch-result', { error: error.message });
   }
 });
