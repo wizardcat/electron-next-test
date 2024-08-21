@@ -15,11 +15,8 @@ export const Search = ({ isLoading }: { isLoading: boolean }) => {
   };
 
   return (
-    <div className="shadow-lg w-full h-36 bg-white text-base rounded-md group">
-      <div className="m-3">
-        <h6 className="font-bold text-black">Sites</h6>
-      </div>
-      <div className="flex items-center text-base m-3">
+    <div className="shadow-lg w-full h-16 bg-white text-base rounded-md group">
+      <div className="flex items-center text-base m-2.5">
         <input
           type="text"
           className="border-2 border-gray-300 rounded-md p-2 w-full focus:border-black focus:outline-none"
@@ -35,7 +32,6 @@ export const Search = ({ isLoading }: { isLoading: boolean }) => {
           {isLoading ? 'Loading...' : 'Submit'}
         </button>
       </div>
-      <div className="text-center text-gray-500 pr-[125px]">Enter link</div>
     </div>
   );
 };
