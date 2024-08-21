@@ -4,7 +4,7 @@ interface SiteStore {
   site: any;
   siteLink: string;
   setSite: (site: any) => void;
-  setSiteLink: (bidId: string) => void;
+  setSiteLink: (link: string) => void;
 }
 
 const useSiteStore = create<SiteStore>((set) => ({

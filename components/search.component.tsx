@@ -4,7 +4,7 @@ import { useState } from 'react';
 export const Search = ({ isLoading }: { isLoading: boolean }) => {
   const [link, setLink] = useState<string>('');
 
-  const setCurrentLink = useSiteStore((state: any) => state.setSiteLink);
+  const setCurrentLink = useSiteStore((state) => state.setSiteLink);
 
   const handleLinkChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLink(e.target.value);
