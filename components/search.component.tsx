@@ -29,7 +29,7 @@ export const Search = ({ isLoading }: { isLoading: boolean }) => {
           onClick={handleSubmitClick}
           disabled={link === '' || isLoading}
         >
-          {isLoading ? 'Loading...' : 'Submit'}
+          {isLoading ? 'Loading...' : 'Go'}
         </button>
       </div>
     </div>
