@@ -1,7 +1,7 @@
-const { app, BaseWindow, WebContentsView, ipcMain } = require('electron');
-const serve = require('electron-serve');
-const path = require('path');
-const axios = require('axios');
+import axios from 'axios';
+import { app, BaseWindow, BrowserWindow, ipcMain, WebContentsView } from 'electron';
+import serve from 'electron-serve';
+import path from 'path';
 
 const appServe = app.isPackaged
   ? serve({
@@ -15,16 +15,17 @@ const createWindow = () => {
   win = new BaseWindow({
     width: 2200,
     height: 1200,
-     webPreferences: {
-       preload: path.join(__dirname, 'preload.js'),
-     },
   });
 
-  const mainView = new WebContentsView({});
+  const mainView = new WebContentsView({
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js'),
+    },
+  });
   win.contentView.addChildView(mainView);
 
-  if (app.isPackaged) {
-    appServe(win).then(() => {
+  if (appServe && app.isPackaged) {
+    appServe(win as BrowserWindow).then(() => {
       mainView.webContents.loadURL('app://-');
     });
   } else {
@@ -40,6 +41,9 @@ const createWindow = () => {
   win.contentView.addChildView(externalView);
   externalView.webContents.loadURL('https://electronjs.org');
   externalView.setBounds({ x: 590, y: 173, width: 887, height: 720 });
+
+
+  externalView.webContents
 };
 
 

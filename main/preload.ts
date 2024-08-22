@@ -1,21 +1,22 @@
-const { contextBridge, ipcRenderer } = require('electron');
+import { contextBridge, ipcRenderer } from 'electron';
+// const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('electron', {
-  on: (channel, callback) => {
+  on: (channel: string, callback: (...args: any[]) => void) => {
     ipcRenderer.on(channel, callback);
   },
-  send: (channel, args) => {
+  send: (channel: string, args: any) => {
     ipcRenderer.send(channel, args);
   },
-  receive: (channel, func) => {
+  receive: (channel: string, func: (...args: any[]) => void) => {
     ipcRenderer.on(channel, (event, ...args) => func(...args));
   },
-  saveHighlight: (data) => {
+  saveHighlight: (data: any) => {
     console.log('saveHighlight: ', data);
 
     ipcRenderer.send('save-highlight', data);
   },
-  onHighlightSaved: (callback) => {
+  onHighlightSaved: (callback: (...args: any[]) => void) => {
     console.log('onHighlightSaved: ', callback);
     ipcRenderer.on('highlight-saved', (event, data) => {
           console.log('onHighlightSaved: callback data: ', data);
