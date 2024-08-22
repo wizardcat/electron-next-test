@@ -1,7 +1,6 @@
 import { useSiteQuery } from '@/hooks/use-site-query.hook';
 import useSiteStore from '@/store/siteStore';
 import { Search } from './search.component';
-import SiteView from './site-view.component';
 
 export const Site = () => {
   const currentLink = useSiteStore((state) => state.siteLink);
@@ -9,7 +8,7 @@ export const Site = () => {
   return (
     <div className="w-full h-full grid grid-rows-[1fr_10fr] ">
       <Search isLoading={isLoading} />
-      <SiteView siteContent={siteContent} isLoading={isLoading} isError={isError} />
+      {/* <SiteView siteContent={siteContent} isLoading={isLoading} isError={isError} /> */}
     </div>
   );
 }
