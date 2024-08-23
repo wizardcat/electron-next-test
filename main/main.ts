@@ -47,7 +47,7 @@ const createWindow = () => {
   });
   win.contentView.addChildView(externalView);
   externalView.webContents.loadURL('https://electronjs.org');
-  externalView.setBounds({ x: 590, y: 173, width: 887, height: 720 });
+  externalView.setBounds({ x: 1180, y: 173, width: 300, height: 720 });
 
   externalView.webContents.on('did-finish-load', (event: any, webContents1: any) => {
     externalView.webContents.executeJavaScript(`
