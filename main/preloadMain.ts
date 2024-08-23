@@ -10,15 +10,4 @@ contextBridge.exposeInMainWorld('electron', {
   receive: (channel: string, func: (...args: any[]) => void) => {
     ipcRenderer.on(channel, (event, ...args) => func(...args));
   },
-  saveHighlight: (data: any) => {
-    ipcRenderer.send('save-highlight', data);
-  },
-  onHighlightSaved: (callback: (...args: any[]) => void) => {
-    ipcRenderer.on('highlight-saved', (event, data) => {
-      callback(data);
-    });
-  },
-  pageLoaded: () => {
-    ipcRenderer.send('page-loaded');
-  },
 });
