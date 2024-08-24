@@ -1419,10 +1419,10 @@ electron-publish@24.13.1:
     lazy-val "^1.0.5"
     mime "^2.5.2"
 
-electron-serve@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/electron-serve/-/electron-serve-1.2.0.tgz#c2aa17017d89483c935f725ed70f8a63845c0091"
-  integrity sha512-zJG3wisMrDn2G/gnjrhyB074COvly1FnS0U7Edm8bfXLB8MYX7UtwR9/y2LkFreYjzQHm9nEbAfgCmF+9M9LHQ==
+electron-serve@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/electron-serve/-/electron-serve-2.1.0.tgz#38df854ea5fb885d046a81c1d8fd42b9a0dff422"
+  integrity sha512-ZJwdRHR2ij4exV0TKp2HQRWN59SW7fICcFZK5bPekN6HoUyrsT+dsCgO5+p8TsDmCwmQ5TJyIPVkghdEd16wwg==
 
 electron@^32.0.0:
   version "32.0.0"

@@ -1,6 +1,18 @@
 appId: "io.github.wizardcat.electron-next-test"
 productName: "Electron test app with Next.JS"
-copyright: "Copyright (c) 2024, wizardcat :)"
+copyright: "Copyright (c) 2024, Wizardcat Production :)"
+buildVersion: "1"
+extends: null
+asarUnpack:
+  - "out/**"
+files: [
+      "build/**/*",
+      # "../build/**/*",
+      # "out/**/*",
+      # "../out/**/*",
+      # "dist/**/*",
+      # "../dist/**/*",
+]
 win:
   target: ["dir", "portable"]
 linux:

@@ -1,36 +1,36 @@
-import { app, BaseWindow, BrowserWindow, ipcMain, WebContentsView } from 'electron';
-import serve from 'electron-serve';
+import { app, BaseWindow, ipcMain, WebContentsView } from 'electron';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import { Quote } from '../interfaces/quote.interface';
 
-const appServe = app.isPackaged
-  ? serve({
-      directory: path.join(__dirname, '../out'),
-    })
-  : null;
-
 let win: BaseWindow;
 let mainView: WebContentsView;
 let externalView: WebContentsView;
-let quotesList: Quote[]=[];
-const createWindow = () => {
+let quotesList: Quote[] = [];
+
+const createWindow = async () => {
   win = new BaseWindow({
     width: 2200,
     height: 1200,
   });
 
-   mainView = new WebContentsView({
+  mainView = new WebContentsView({
     webPreferences: {
       preload: path.join(__dirname, 'preloadMain.js'),
     },
   });
   win.contentView.addChildView(mainView);
 
-  if (appServe && app.isPackaged) {
-    appServe(win as BrowserWindow).then(() => {
-      mainView.webContents.loadURL('app://-');
+  if (app.isPackaged) {
+    const serve = await import('electron-serve');
+    const appServe = serve.default({
+      directory: path.join(__dirname, '../out'),
     });
+
+    await appServe(win as any);
+    console.log('appServe: done');
+    mainView.webContents.loadURL('app://-');
+    mainView.webContents.openDevTools();
   } else {
     mainView.webContents.loadURL('http://localhost:3000');
     mainView.webContents.openDevTools();
@@ -51,31 +51,31 @@ const createWindow = () => {
 
   externalView.webContents.on('did-finish-load', (event: any, webContents1: any) => {
     externalView.webContents.executeJavaScript(`
-        document.addEventListener('mouseup', () => {
+      document.addEventListener('mouseup', () => {
         const selection = window.getSelection();
         if (selection && selection.toString().length > 0) {
-            const selectedText = selection.toString();
-            const popup = document.createElement('div');
-            popup.setAttribute('id', 'button_popup');
-            popup.style.position = 'absolute';
-            popup.style.backgroundColor = '#FFF';
-            popup.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
-            popup.style.border = '1px solid #000';
-            popup.style.borderRadius = '0.375rem';
-            popup.style.padding = '5px';
-            popup.style.zIndex = '10000';
-            popup.style.top = \`\${window.pageYOffset + selection.getRangeAt(0).getBoundingClientRect().top+10}px\`;
-            popup.style.left = \`\${selection.getRangeAt(0).getBoundingClientRect().left+popup.getBoundingClientRect().width}px\`;
-            popup.textContent = 'Save Highlight';
-            popup.onclick=(el)=>{
+          const selectedText = selection.toString();
+          const popup = document.createElement('div');
+          popup.setAttribute('id', 'button_popup');
+          popup.style.position = 'absolute';
+          popup.style.backgroundColor = '#FFF';
+          popup.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+          popup.style.border = '1px solid #000';
+          popup.style.borderRadius = '0.375rem';
+          popup.style.padding = '5px';
+          popup.style.zIndex = '10000';
+          popup.style.top = \`\${window.pageYOffset + selection.getRangeAt(0).getBoundingClientRect().top + 10}px\`;
+          popup.style.left = \`\${selection.getRangeAt(0).getBoundingClientRect().left + popup.getBoundingClientRect().width}px\`;
+          popup.textContent = 'Save Highlight';
+          popup.onclick = (el) => {
             const title = document.title;
-                const url = window.location.href;
-                window.electron.saveHighlight({ url, title, text: selectedText });
-                el.target.remove();
-            };
-            document.body.appendChild(popup);
+            const url = window.location.href;
+            window.electron.saveHighlight({ url, title, text: selectedText });
+            el.target.remove();
+          };
+          document.body.appendChild(popup);
         }
-    });
+      });
     `);
   });
 };
@@ -100,7 +100,6 @@ ipcMain.on('fetch-url', async (event: any, url: string) => {
     setTimeout(() => {
       event.sender.send('fetch-result', { data: { state: 'load_was_started' } });
     }, 1000);
-    // event.reply('fetch-result', { data: response.data });
   } catch (error: any) {
     // event.reply('fetch-result', { error: error.message });
   }
@@ -111,7 +110,7 @@ ipcMain.on('save-highlight', (event, data: Quote) => {
     id: uuidv4(),
     ...data,
   };
-  
+
   quotesList.push(quote);
   mainView.webContents.send('get-quotes', JSON.stringify({ data: quotesList }));
 });
