@@ -13,7 +13,7 @@ export const QuotesList = () => {
   }, []);
 
   return (
-    <div className="w-full h-full text-base rounded-md pl-5">
+    <div className="w-full h-full text-base rounded-md pl-7">
       <div className="m-5  text-gray-800 text-lg font-bold">
         <p>Your highlights:</p>
       </div>
