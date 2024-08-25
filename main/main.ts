@@ -1,5 +1,6 @@
-import { app, BaseWindow, ipcMain, WebContentsView } from 'electron';
+import { app, BaseWindow, ipcMain, protocol, WebContentsView } from 'electron';
 import log from 'electron-log/main';
+import fs from 'fs';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import { Quote } from '../interfaces/quote.interface';
@@ -22,19 +23,30 @@ const createWindow = async () => {
     },
   });
   win.contentView.addChildView(mainView);
-  
-  if (app.isPackaged) {
-    log.info('app.isPackaged: ', app.isPackaged);
-    log.info(`file://${path.join(__dirname, '../out/index.html')}`);
-    // const serve = await import('electron-serve');
-    // const appServe = serve.default({
-    //   directory: path.join(__dirname, '../out'),
-    // });
 
-    // await appServe(mainView);
-    mainView.webContents.loadURL(`file://${path.resolve(__dirname, '../../out/index.html')}`);
-    // mainView.webContents.loadURL(`file://${path.join(__dirname, '../../out/index.html')}`);
-    // await mainView.webContents.loadURL('app://-');
+  if (app.isPackaged) {
+
+
+    protocol.handle('file', (request) => {
+      const url = request.url.substr(7); // Remove 'file://' prefix
+      let filePath = path.join(__dirname, '../../out', url);
+    log.info('filePath: ', filePath);
+      if (filePath.endsWith('.html')) {
+        filePath = path.join(__dirname, '../../out/index.html');
+      }
+
+      return fs.promises
+        .readFile(filePath)
+        .then((data) => {
+          return new Response(data, { headers: { 'Content-Type': 'text/html' } });
+        })
+        .catch((err) => {
+          log.error('File not found:', err);
+          return new Response(null, { status: 404 });
+        });
+    });
+
+    mainView.webContents.loadURL('file:///index.html');
     mainView.webContents.openDevTools();
   } else {
     mainView.webContents.loadURL('http://localhost:3000');

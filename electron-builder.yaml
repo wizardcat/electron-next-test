@@ -24,3 +24,9 @@ linux:
   target: ["dir", "appimage"]
 mac:
   target: ["dir", "dmg"]
+extraResources: [
+  {
+    from: "out/**/*",
+    to: "./",
+    filter: ["**/*"],
+  },]
