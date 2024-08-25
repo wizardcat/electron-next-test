@@ -23,8 +23,8 @@ Building the Project
 ### Prerequisites
 Ensure you have the following software installed:
 
-Node.js (v14 or later)
-npm (v6 or later) or Yarn (optional)
+Node.js (v18 or later)
+Yarn
 TypeScript (v5 or later)
 Installation
 Clone the repository and install the dependencies:
@@ -36,8 +36,6 @@ Clone the repository and install the dependencies:
 ## Project Structure
 The project is structured as follows:
 
-plaintext
-Копіювати код
 ├── build/            # Compiled Electron code (output directory)
 ├── main/             # Electron main process source code (TypeScript)
 ├── out/              # Next.js build output
@@ -53,17 +51,13 @@ plaintext
 ## Available Scripts
 Here are the scripts available for common tasks:
 
-npm run dev: Starts the development environment. Runs both Electron and Next.js with hot-reloading.
+`npm run dev`: Starts the development environment. Runs both Electron and Next.js with hot-reloading.
 
-npm run build: Builds the production-ready Next.js and Electron application.
+`npm run build`: Builds the production-ready Next.js and Electron application.
 
-npm run build:electron: Compiles Electron and packages the app using Electron Builder.
+`npm run build:electron`: Compiles Electron and packages the app using Electron Builder.
 
-npm run build:main: Compiles the Electron main process TypeScript files.
-
-npm run start: Starts the Next.js production server.
-
-npm run lint: Runs ESLint to lint the codebase.
+`npm run build:main`: Compiles the Electron main process TypeScript files.
 
 ## Dependencies
 
@@ -101,12 +95,3 @@ To build the application for production:
 
 This will compile the Next.js application, compile the Electron main process, and package the app using Electron Builder.
 
-### Extras
-
-`yarn build:main`
-
-Build Electron main files separately.
-
-`yarn build:electron`
-
-Build Electron main process separately.
