@@ -1,5 +1,5 @@
 import { useSiteQuery } from '@/hooks/use-site-query.hook';
-import useSiteStore from '@/store/siteStore';
+import useSiteStore from '@/store/site.store';
 import { Search } from './search.component';
 
 export const Site = () => {

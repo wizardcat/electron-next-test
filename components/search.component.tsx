@@ -1,4 +1,4 @@
-import useSiteStore from '@/store/siteStore';
+import useSiteStore from '@/store/site.store';
 import { useState } from 'react';
 
 export const Search = ({ isLoading }: { isLoading: boolean }) => {
