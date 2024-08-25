@@ -13,8 +13,12 @@ let quotesList: Quote[] = [];
 
 const createWindow = async () => {
   win = new BaseWindow({
-    width: 2200,
-    height: 1200,
+    width: 1280,
+    height: 720,
+    // resizable: true,
+    // fullscreenable: true,
+    // minHeight: 800,
+    // minWidth: 800,
   });
 
   mainView = new WebContentsView({
@@ -53,15 +57,15 @@ const createWindow = async () => {
     });
 
     mainView.webContents.loadURL('file:///index.html');
-    mainView.webContents.openDevTools();
+    // mainView.webContents.openDevTools();
   } else {
     mainView.webContents.loadURL('http://localhost:3000');
-    mainView.webContents.openDevTools();
+    // mainView.webContents.openDevTools();
     mainView.webContents.on('did-fail-load', () => {
       mainView.webContents.reloadIgnoringCache();
     });
   }
-  mainView.setBounds({ x: 0, y: 0, width: 2000, height: 1200 });
+  mainView.setBounds({ x: 0, y: 0, width: 1280, height: 720 });
 
   externalView = new WebContentsView({
     webPreferences: {
@@ -70,7 +74,7 @@ const createWindow = async () => {
   });
   win.contentView.addChildView(externalView);
   externalView.webContents.loadURL('https://electronjs.org');
-  externalView.setBounds({ x: 960, y: 173, width: 300, height: 720 });
+  externalView.setBounds({ x: 885, y: 80, width: 350, height: 655 });
 
   externalView.webContents.on('did-finish-load', (event: any, webContents1: any) => {
     externalView.webContents.executeJavaScript(`

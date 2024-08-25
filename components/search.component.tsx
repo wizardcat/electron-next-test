@@ -15,23 +15,21 @@ export const Search = ({ isLoading }: { isLoading: boolean }) => {
   };
 
   return (
-    <div className="shadow-lg w-full h-16 bg-white text-base rounded-md group">
-      <div className="flex items-center text-base m-2.5">
-        <input
-          type="text"
-          className="border-2 border-gray-300 rounded-md p-2 w-full focus:border-black focus:outline-none"
-          placeholder="Enter site link"
-          value={link}
-          onChange={handleLinkChange}
-        />
-        <button
-          className="ml-4 bg-black  hover:bg-gray-800 px-2 py-2 rounded-md right-0   text-white w-[175px]"
-          onClick={handleSubmitClick}
-          disabled={link === '' || isLoading}
-        >
-          {isLoading ? 'Loading...' : 'Go'}
-        </button>
-      </div>
+    <div className="w-full flex items-center text-base border-gray-500 pt-10 pr-2 pl-2">
+      <input
+        type="text"
+        className="border-2 border-gray-300 rounded-md pr-1 w-full bg-gray-300 focus:border-gray-400  focus:outline-none"
+        placeholder="Enter site link"
+        value={link}
+        onChange={handleLinkChange}
+      />
+      <button
+        className="ml-1 bg-gray-300 border-[1px] border-gray-700 hover:bg-gray-400 rounded-md  w-24 h-[26px]"
+        onClick={handleSubmitClick}
+        disabled={link === '' || isLoading}
+      >
+        {isLoading ? 'Loading...' : 'Go'}
+      </button>
     </div>
   );
 };
