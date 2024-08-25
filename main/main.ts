@@ -1,7 +1,9 @@
 import { app, BaseWindow, ipcMain, WebContentsView } from 'electron';
+import log from 'electron-log/main';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import { Quote } from '../interfaces/quote.interface';
+log.initialize();
 
 let win: BaseWindow;
 let mainView: WebContentsView;
@@ -20,16 +22,19 @@ const createWindow = async () => {
     },
   });
   win.contentView.addChildView(mainView);
-
+  
   if (app.isPackaged) {
-    const serve = await import('electron-serve');
-    const appServe = serve.default({
-      directory: path.join(__dirname, '../out'),
-    });
+    log.info('app.isPackaged: ', app.isPackaged);
+    log.info(`file://${path.join(__dirname, '../out/index.html')}`);
+    // const serve = await import('electron-serve');
+    // const appServe = serve.default({
+    //   directory: path.join(__dirname, '../out'),
+    // });
 
-    await appServe(win as any);
-    console.log('appServe: done');
-    mainView.webContents.loadURL('app://-');
+    // await appServe(mainView);
+    mainView.webContents.loadURL(`file://${path.resolve(__dirname, '../../out/index.html')}`);
+    // mainView.webContents.loadURL(`file://${path.join(__dirname, '../../out/index.html')}`);
+    // await mainView.webContents.loadURL('app://-');
     mainView.webContents.openDevTools();
   } else {
     mainView.webContents.loadURL('http://localhost:3000');
@@ -38,7 +43,7 @@ const createWindow = async () => {
       mainView.webContents.reloadIgnoringCache();
     });
   }
-  mainView.setBounds({ x: 0, y: 0, width: 2200, height: 1200 });
+  mainView.setBounds({ x: 0, y: 0, width: 2000, height: 1200 });
 
   externalView = new WebContentsView({
     webPreferences: {
@@ -47,7 +52,7 @@ const createWindow = async () => {
   });
   win.contentView.addChildView(externalView);
   externalView.webContents.loadURL('https://electronjs.org');
-  externalView.setBounds({ x: 1180, y: 173, width: 300, height: 720 });
+  externalView.setBounds({ x: 960, y: 173, width: 300, height: 720 });
 
   externalView.webContents.on('did-finish-load', (event: any, webContents1: any) => {
     externalView.webContents.executeJavaScript(`
