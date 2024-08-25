@@ -1,8 +1,9 @@
 import useSiteStore from '@/store/site.store';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-export const Search = ({ isLoading }: { isLoading: boolean }) => {
+export const Search = () => {
   const [link, setLink] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const setCurrentLink = useSiteStore((state) => state.setSiteLink);
 
@@ -12,7 +13,16 @@ export const Search = ({ isLoading }: { isLoading: boolean }) => {
 
   const handleSubmitClick = async () => {
     setCurrentLink(link);
+    setIsLoading(true);
+    window.electron.send('fetch-url', link);
   };
+
+  useEffect(() => {
+    window.electron.receive('page-load', (result: any) => {
+      const { isLoaded } = JSON.parse(result);
+      setIsLoading(!isLoaded);
+    });
+  }, []);
 
   return (
     <div className="w-full flex items-center text-base border-gray-500 pt-10 pr-2 pl-2">

@@ -15,15 +15,11 @@ const createWindow = async () => {
   win = new BaseWindow({
     width: 1280,
     height: 720,
-    // resizable: true,
-    // fullscreenable: true,
-    // minHeight: 800,
-    // minWidth: 800,
   });
 
   mainView = new WebContentsView({
     webPreferences: {
-      preload: path.join(__dirname, 'preloadMain.js'),
+      preload: path.join(__dirname, 'preload.js'),
     },
   });
   win.contentView.addChildView(mainView);
@@ -57,7 +53,6 @@ const createWindow = async () => {
     });
 
     mainView.webContents.loadURL('file:///index.html');
-    // mainView.webContents.openDevTools();
   } else {
     mainView.webContents.loadURL('http://localhost:3000');
     // mainView.webContents.openDevTools();
@@ -73,10 +68,9 @@ const createWindow = async () => {
     },
   });
   win.contentView.addChildView(externalView);
-  externalView.webContents.loadURL('https://electronjs.org');
   externalView.setBounds({ x: 885, y: 80, width: 350, height: 655 });
 
-  externalView.webContents.on('did-finish-load', (event: any, webContents1: any) => {
+  externalView.webContents.on('did-finish-load', () => {
     externalView.webContents.executeJavaScript(`
       document.addEventListener('mouseup', () => {
         const selection = window.getSelection();
@@ -97,7 +91,7 @@ const createWindow = async () => {
           popup.onclick = (el) => {
             const title = document.title;
             const url = window.location.href;
-            window.electron.saveHighlight({ url, title, text: selectedText });
+            window.electron.send('save-highlight', { url, title, text: selectedText });
             el.target.remove();
           };
           document.body.appendChild(popup);
@@ -123,12 +117,13 @@ app.on('window-all-closed', () => {
 
 ipcMain.on('fetch-url', async (event: any, url: string) => {
   try {
-    externalView.webContents.loadURL(url);
-    setTimeout(() => {
-      event.sender.send('fetch-result', { data: { state: 'load_was_started' } });
-    }, 1000);
+    await externalView.webContents.loadURL(url);
+
+    const res = JSON.stringify({ isLoaded: true });
+
+    event.sender.send('page-load', res);
   } catch (error: any) {
-    // event.reply('fetch-result', { error: error.message });
+    event.reply('page-load', { error: error.message });
   }
 });
 
