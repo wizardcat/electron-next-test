@@ -56,6 +56,8 @@ const createWindow = async () => {
   win = new BaseWindow({
     width: 1280,
     height: 720,
+    maximizable: false,
+    resizable: false,
   });
 
   mainView = new WebContentsView({
