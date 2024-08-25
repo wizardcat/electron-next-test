@@ -1,18 +1,14 @@
-import useSiteStore from '@/store/site.store';
 import { useEffect, useState } from 'react';
 
 export const Search = () => {
   const [link, setLink] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const setCurrentLink = useSiteStore((state) => state.setSiteLink);
-
   const handleLinkChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLink(e.target.value);
   };
 
   const handleSubmitClick = async () => {
-    setCurrentLink(link);
     setIsLoading(true);
     window.electron.send('fetch-url', link);
   };
