@@ -25,20 +25,26 @@ const createWindow = async () => {
   win.contentView.addChildView(mainView);
 
   if (app.isPackaged) {
-
-
     protocol.handle('file', (request) => {
-      const url = request.url.substr(7); // Remove 'file://' prefix
+      const url = request.url.slice('file://'.length);
       let filePath = path.join(__dirname, '../../out', url);
-    log.info('filePath: ', filePath);
-      if (filePath.endsWith('.html')) {
-        filePath = path.join(__dirname, '../../out/index.html');
+
+      if (url.startsWith('_next/static/')) {
+        filePath = path.join(__dirname, '../../out', url);
       }
 
       return fs.promises
         .readFile(filePath)
         .then((data) => {
-          return new Response(data, { headers: { 'Content-Type': 'text/html' } });
+          let contentType = 'text/plain';
+          if (filePath.endsWith('.html')) contentType = 'text/html';
+          else if (filePath.endsWith('.css')) contentType = 'text/css';
+          else if (filePath.endsWith('.js')) contentType = 'application/javascript';
+          else if (filePath.endsWith('.woff2')) contentType = 'font/woff2';
+          else if (filePath.endsWith('.woff')) contentType = 'font/woff';
+          else if (filePath.endsWith('.ttf')) contentType = 'font/ttf';
+
+          return new Response(data, { headers: { 'Content-Type': contentType } });
         })
         .catch((err) => {
           log.error('File not found:', err);
