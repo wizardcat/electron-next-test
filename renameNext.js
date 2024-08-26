@@ -1,4 +1,4 @@
-// renameAndFixLinks.js
+// Rename the _next directory to next. It needs for MacOS, because it does not include underscored files/directories in build
 const fs = require('fs');
 const path = require('path');
 
