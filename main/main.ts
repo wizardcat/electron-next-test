@@ -124,7 +124,7 @@ app.on('window-all-closed', () => {
   }
 });
 
-ipcMain.on('fetch-url', async (event: any, url: string) => {
+ipcMain.on('fetch-url', async (event, url) => {
   try {
     await externalView.webContents.loadURL(url);
 

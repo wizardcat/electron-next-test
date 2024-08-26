@@ -6,7 +6,7 @@ export const QuotesList = () => {
   const [quotes, setQuotes] = useState<Quote[]>([]);
 
   useEffect(() => {
-    window.electron.receive('get-quotes', (result: any) => {
+    window.electron.receive('get-quotes', (result: string) => {
       const { data } = JSON.parse(result);
       setQuotes(data.reverse());
     });
@@ -18,7 +18,7 @@ export const QuotesList = () => {
         <p>Your highlights:</p>
       </div>
       <hr className="m-2 border-double border-x-0 border-b-0 border-4 border-gray-700" />
-      {quotes?.map((quote: any) => (
+      {quotes?.map((quote) => (
         <QuoteContent key={quote.id} quote={quote} />
       ))}
       {quotes?.length === 0 && (

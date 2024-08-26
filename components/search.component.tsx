@@ -14,7 +14,7 @@ export const Search = () => {
   };
 
   useEffect(() => {
-    window.electron.receive('page-load', (result: any) => {
+    window.electron.receive('page-load', (result: string) => {
       const { isLoaded } = JSON.parse(result);
       setIsLoading(!isLoaded);
     });
