@@ -4,11 +4,6 @@ Next.js is not needed for the task at hand, but I was interested in trying to ma
 
 P.S. I know about Nextron, but "This is different." (c). :)
 
-Upd. The project build does not work correctly on MacOS. If you need to create build you shall use Windows.
-
-## To do
-Fix a bug. There is a problem with resource pathes on MacOS for the built project.
-
 ## Project Overview
 Author: Roman Havrylko
 Version: 0.1.0
