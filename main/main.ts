@@ -72,7 +72,7 @@ const createWindow = async () => {
       const url = request.url.slice('file://'.length);
       let filePath = path.join(__dirname, '../../out', url);
 
-      if (url.startsWith('_next/static/')) {
+      if (url.startsWith('next/static/')) {
         filePath = path.join(__dirname, '../../out', url);
       }
 

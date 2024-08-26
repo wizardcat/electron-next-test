@@ -1,20 +1,15 @@
-appId: "io.github.wizardcat.electron-next-test"
-productName: "Electron test app with Next.JS"
-copyright: "Copyright (c) 2024, Wizardcat Production :)"
-buildVersion: "1"
+appId: 'io.github.wizardcat.electron-next-test'
+productName: 'Electron test app with Next.JS'
+copyright: 'Copyright (c) 2024, Wizardcat Production :)'
+buildVersion: '1'
 files: [
-      "build/**/*",
-      "out/**/*",
-]
+    "build/**/*",
+    "out/**/*",
+  ]
 win:
-  target: ["dir", "portable"]
+  target: ['dir', 'portable']
 linux:
-  target: ["dir", "appimage"]
+  target: ['dir', 'appimage']
 mac:
-  target: ["dir", "dmg"]
-extraResources: [
-  {
-    from: "out/**/*",
-    to: "./",
-    filter: ["**/*"],
-  },]
+  target: ['dir', 'dmg']
+

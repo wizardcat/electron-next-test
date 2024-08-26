@@ -6,9 +6,11 @@
   "description": "Electron + NextJS test project",
   "scripts": {
     "dev": "concurrently -n \"NEXT,ELECTRON\" -c \"yellow,blue\" --kill-others \"next dev\" \"wait-on http://127.0.0.1:3000 && tsc -p main -w\" \"wait-on http://127.0.0.1:3000 && tsc -p main && electron .\"",
-    "build": "next build && tsc -p main && electron-builder",
-    "build:electron": "tsc -p main && electron-builder",
-    "build:main": "tsc -p main"
+    "build:main": "tsc -p main",
+    "build:next": "next build",
+    "postbuild:next": "node renameNext.js",
+    "build:electron": "yarn build:main && electron-builder",
+    "build": "yarn build:next && yarn build:electron"
   },
   "dependencies": {
     "axios": "^1.7.4",
