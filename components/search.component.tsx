@@ -34,7 +34,7 @@ export const Search = () => {
         onClick={handleSubmitClick}
         disabled={link === '' || isLoading}
       >
-        {isLoading ? 'Loading...' : 'Go'}
+        {isLoading ? <span className='text-[11px]'>Loading...</span> : 'Go'}
       </button>
     </div>
   );
