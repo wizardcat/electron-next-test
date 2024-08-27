@@ -35,7 +35,7 @@ Clone the repository and install the dependencies:
 
 ## Project Structure
 The project is structured as follows:
-
+```bash
 ├── build/            # Compiled Electron code (output directory)
 ├── main/             # Electron main process source code (TypeScript)
 ├── out/              # Next.js build output
@@ -47,7 +47,7 @@ The project is structured as follows:
 ├── package.json      # Project metadata and dependencies
 ├── tsconfig.json     # TypeScript configuration
 └── README.md         # Project documentation
-
+```
 ## Available Scripts
 Here are the scripts available for common tasks:
 
@@ -62,21 +62,21 @@ Here are the scripts available for common tasks:
 ## Dependencies
 
 ### Core Dependencies
-axios: Promise-based HTTP client for the browser and Node.js.
-electron-log: Simple logging for Electron.
-next: The React framework for production.
-react: A JavaScript library for building user interfaces.
-react-dom: React package for working with the DOM.
-uuid: Simple, fast generation of RFC4122 UUIDs.
+`axios`: Promise-based HTTP client for the browser and Node.js.
+`electron-log`: Simple logging for Electron.
+`next`: The React framework for production.
+`react`: A JavaScript library for building user interfaces.
+`react-dom`: React package for working with the DOM.
+`uuid`: Simple, fast generation of RFC4122 UUIDs.
 
 ### Development Dependencies
-TypeScript: A strict syntactical superset of JavaScript that adds optional static typing.
-Electron: A framework for building cross-platform desktop apps using web technologies.
-Electron Builder: A complete solution to package and build Electron apps.
-ESLint: A tool for identifying and fixing problems in your JavaScript code.
-TailwindCSS: A utility-first CSS framework.
-Concurrently: Run multiple npm scripts concurrently.
-Wait-On: Wait for files, ports, sockets, or http(s) resources to become available.
+`TypeScript`: A strict syntactical superset of JavaScript that adds optional static typing.
+`Electron`: A framework for building cross-platform desktop apps using web technologies.
+`Electron Builder`: A complete solution to package and build Electron apps.
+`ESLint`: A tool for identifying and fixing problems in your JavaScript code.
+`TailwindCSS`: A utility-first CSS framework.
+`Concurrently`: Run multiple npm scripts concurrently.
+`Wait-On`: Wait for files, ports, sockets, or http(s) resources to become available.
 
 ## Development Workflow
 1. Start Development:
