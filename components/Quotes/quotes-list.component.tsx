@@ -1,16 +1,8 @@
-import { Quote } from '@/interfaces/quote.interface';
-import { useEffect, useState } from 'react';
-import { QuoteContent } from './quote-content.component';
+import { QuoteContent } from '../quote-content.component';
+import { useQuotes } from './use-qutes.hook';
 
 export const QuotesList = () => {
-  const [quotes, setQuotes] = useState<Quote[]>([]);
-
-  useEffect(() => {
-    window.electron.receive('get-quotes', (result: string) => {
-      const { data } = JSON.parse(result);
-      setQuotes(data.reverse());
-    });
-  }, []);
+ const quotes  = useQuotes();
 
   return (
     <div className="w-full h-full text-base rounded-md pl-7">

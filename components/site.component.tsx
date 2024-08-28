@@ -1,4 +1,4 @@
-import { Search } from './search.component';
+import { Search } from './Search/search.component';
 
 export const Site = () => {
   return (

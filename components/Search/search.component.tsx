@@ -1,24 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useSearch } from './use-search.hook';
 
 export const Search = () => {
-  const [link, setLink] = useState<string>('');
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const handleLinkChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLink(e.target.value);
-  };
-
-  const handleSubmitClick = async () => {
-    setIsLoading(true);
-    window.electron.send('fetch-url', link);
-  };
-
-  useEffect(() => {
-    window.electron.receive('page-load', (result: string) => {
-      const { isLoaded } = JSON.parse(result);
-      setIsLoading(!isLoaded);
-    });
-  }, []);
+  const { link, isLoading, handleLinkChange, handleSubmitClick } = useSearch();
 
   return (
     <div className="w-full flex items-center text-base border-gray-500 pt-10 pr-2 pl-2">

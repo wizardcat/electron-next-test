@@ -1,4 +1,4 @@
-import { QuotesList } from '@/components/quotes-list.component';
+import { QuotesList } from '@/components/Quotes/quotes-list.component';
 import { Site } from '@/components/site.component';
 
 
