@@ -20,7 +20,7 @@ const externalSiteViewCreate = () => {
     },
   });
   win.contentView.addChildView(externalView);
-  externalView.setBounds({ x: 885, y: 80, width: 350, height: 655 });
+  externalView.setBounds({ x: 885, y: 82, width: 350, height: 655 });
   externalView.webContents.on('did-finish-load', () => {
     externalView.webContents.executeJavaScript(`
       document.addEventListener('mouseup', 

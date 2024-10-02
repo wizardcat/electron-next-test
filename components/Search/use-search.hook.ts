@@ -1,29 +1,42 @@
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+
+const SearchSchema = z.object({
+  link: z.string().url(),
+});
+
+type SearchSchemaType = z.infer<typeof SearchSchema>;
 
 export const useSearch = () => {
-  const [link, setLink] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const handleLinkChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLink(e.target.value);
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SearchSchemaType>({
+    resolver: zodResolver(SearchSchema),
+  });
 
-  const handleSubmitClick = async () => {
+  const handleSubmitClick = async (data: SearchSchemaType) => {
     setIsLoading(true);
-    window.electron.send('fetch-url', link);
+    window.electron.send('fetch-url', data.link);
   };
 
-  useEffect(() => {
+  useEffect(() => {    
     window.electron.receive('page-load', (result: string) => {
-      const { isLoaded } = JSON.parse(result);
+      const { isLoaded } = JSON.parse(result);      
       setIsLoading(!isLoaded);
     });
   }, []);
 
   return {
-    link,
     isLoading,
-    handleLinkChange,
     handleSubmitClick,
+    register,
+    handleSubmit,
+    errors,
   };
-}
+};
